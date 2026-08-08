@@ -19,7 +19,7 @@
     --paper:#EAE5DB;--paper-2:#F1ECE3;--paper-3:#E1DBCF;
     --ink:#211E19;--ink-soft:#5A544B;--ink-faint:#8C8578;
     --line:rgba(33,30,25,0.14);--line-soft:rgba(33,30,25,0.08);
-    --accent:#8A6A46;--accent-deep:#6E5335;--shadow:rgba(33,30,25,0.10);
+    --accent:#5B4A38;--accent-deep:#463829;--shadow:rgba(33,30,25,0.10);
     --font-display:"Hoefler Text","Didot","Bodoni 72","Hiragino Mincho ProN","Yu Mincho","Songti SC","Source Han Serif SC",Georgia,serif;
     --font-body:"Helvetica Neue","Hiragino Kaku Gothic ProN","PingFang SC","Yu Gothic",system-ui,-apple-system,sans-serif;
     --maxw:1180px;--gutter:clamp(1.5rem,5vw,5.5rem);
@@ -34,7 +34,7 @@
   :root[data-theme="light"]{
     --paper:#EAE5DB;--paper-2:#F1ECE3;--paper-3:#E1DBCF;--ink:#211E19;--ink-soft:#5A544B;
     --ink-faint:#8C8578;--line:rgba(33,30,25,0.14);--line-soft:rgba(33,30,25,0.08);
-    --accent:#8A6A46;--accent-deep:#6E5335;--shadow:rgba(33,30,25,0.10);
+    --accent:#5B4A38;--accent-deep:#463829;--shadow:rgba(33,30,25,0.10);
   }
   :root[data-theme="dark"]{
     --paper:#15140F;--paper-2:#1D1B15;--paper-3:#100F0B;--ink:#E9E3D6;--ink-soft:#A69E8E;
@@ -411,7 +411,7 @@ body.menu-open{overflow:hidden}
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow" data-i18n="why.eyebrow">Why FLUENT</span>
-        <h2 class="display" data-i18n="why.h2">We are not brokers.<br>We are lifestyle concierges.</h2>
+        <h2 class="display" data-i18n="why.h2">More than real estate.<br>Your lifestyle concierge in Tokyo.</h2>
       </div>
       <div class="why-grid">
         <ul class="why-list reveal">
@@ -472,37 +472,22 @@ body.menu-open{overflow:hidden}
   <section id="properties">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="eyebrow" data-i18n="prop.eyebrow">Featured Residences</span>
-        <h2 class="display" data-i18n="prop.h2">A considered few.</h2>
-        <p class="lede" data-i18n="prop.lede">We show little, and only what we would live in ourselves. Full portfolios by private introduction.</p>
+        <span class="eyebrow" data-i18n="prop.eyebrow">Inspired Living</span>
+        <h2 class="display" data-i18n="prop.h2">A Glimpse of Life in Tokyo</h2>
+        <p class="lede" data-i18n="prop.lede">The residences shown here are for inspiration only — a sense of the homes and neighbourhoods FLUENT curates around you.</p>
       </div>
       <div class="prop-grid stagger">
-        <a class="prop reveal" href="#contact">
-          <div class="frame"><span class="tier" data-i18n="prop.forsale">For Sale</span><div class="art" data-art="tower"></div></div>
-          <div class="meta"><span class="loc" data-i18n="prop.p1loc">Minato · Azabudai</span><span class="price" data-i18n="prop.enquire">Enquire</span></div>
-          <h3>Full-Floor Residence</h3>
-          <p class="desc" data-i18n="prop.p1d">A full-floor residence with city and bay outlook, private lift, and concierge floor.</p>
-        </a>
-        <a class="prop reveal" href="#contact">
-          <div class="frame"><span class="tier" data-i18n="prop.forlease">For Lease</span><div class="art" data-art="garden"></div></div>
-          <div class="meta"><span class="loc" data-i18n="prop.p2loc">Shibuya · Shoto</span><span class="price" data-i18n="prop.enquire">Enquire</span></div>
-          <h3>Garden House</h3>
-          <p class="desc" data-i18n="prop.p2d">A low-rise home on Tokyo's most private street, with an inner garden and quiet light.</p>
-        </a>
-        <a class="prop reveal" href="#contact">
-          <div class="frame"><span class="tier" data-i18n="prop.forsale">For Sale</span><div class="art" data-art="pent"></div></div>
-          <div class="meta"><span class="loc" data-i18n="prop.p3loc">Minato · Hiroo</span><span class="price" data-i18n="prop.enquire">Enquire</span></div>
-          <h3>Corner Penthouse</h3>
-          <p class="desc" data-i18n="prop.p3d">Corner penthouse near the international quarter — schools, embassies, and parks at hand.</p>
-        </a>
-        <a class="prop reveal" href="#contact">
-          <div class="frame"><span class="tier" data-i18n="prop.forlease">For Lease</span><div class="art" data-art="villa"></div></div>
-          <div class="meta"><span class="loc" data-i18n="prop.p4loc">Shibuya · Daikanyama</span><span class="price" data-i18n="prop.enquire">Enquire</span></div>
-          <h3>Design Villa</h3>
-          <p class="desc" data-i18n="prop.p4d">A design-led villa moments from boutiques and cafés, made for a slower Tokyo life.</p>
-        </a>
+        <a class="prop reveal" href="#contact"><div class="frame"><div class="art" data-art="tower"></div></div></a>
+        <a class="prop reveal" href="#contact"><div class="frame"><div class="art" data-art="garden"></div></div></a>
+        <a class="prop reveal" href="#contact"><div class="frame"><div class="art" data-art="pent"></div></div></a>
+        <a class="prop reveal" href="#contact"><div class="frame"><div class="art" data-art="villa"></div></div></a>
       </div>
-      <div class="prop-note"><p class="pn-h">Properties, selected for you.<span class="pn-jp">あなたのために選ぶ、東京の住まい。</span></p><p class="pn-b">The residences shown on this website are for inspiration only and do not represent specific properties currently available for sale or lease. Tell us what you are looking for, and we will curate suitable properties based on your preferences, including privately marketed opportunities where available.</p><p class="pn-b pn-jp2">本サイトに掲載している住宅画像は、FLUENTがご提案する暮らしのイメージであり、現在売買・賃貸中の特定物件を示すものではありません。ご希望条件をお聞かせいただければ、一般には公開されていない物件を含め、お客様のご希望に合った物件をご提案いたします。</p></div>
+      <div class="prop-note"><p class="pn-h">Properties, selected for you.<span class="pn-jp">あなたのために選ぶ、東京の住まい。</span></p><p class="pn-b">The residences shown on this website are for inspiration only and do not represent specific properties currently available for sale or lease. Tell us what you're looking for, and we'll curate properties based on your preferences — including privately marketed opportunities where available.</p><p class="pn-b pn-jp2">本サイトに掲載している住宅画像は、FLUENTがご提案する暮らしのイメージであり、現在売買・賃貸中の特定物件を示すものではありません。ご希望条件をお聞かせいただければ、一般には公開されていない物件を含め、お客様のご希望に合った物件をご提案いたします。</p></div>
+      <div class="mid-cta reveal">
+        <p class="mc-h">Looking for something like this?</p>
+        <p class="mc-b">Tell us what you're looking for. We'll find properties tailored to your preferences.</p>
+        <a class="mc-btn" href="#contact">Begin my search <span>&rarr;</span></a>
+      </div>
     </div>
   </section>
 
@@ -537,7 +522,7 @@ body.menu-open{overflow:hidden}
       <div class="rq-stage" id="rqStage"></div>
       <div class="rq-nav">
         <button type="button" class="rq-back" id="rqBack">Back</button>
-        <button type="button" class="rq-next" id="rqNext" style="background:#1C1B19;color:#EFEAE0;border-radius:999px;padding:15px 30px;border:1px solid #1C1B19">Next <span class="arw">&rarr;</span></button>
+        <button type="button" class="rq-next" id="rqNext" style="background:#5B4A38;color:#F3EEE3;border-radius:999px;padding:15px 30px;border:1px solid #5B4A38">Next <span class="arw">&rarr;</span></button>
       </div>
       <p class="rq-foot">Prefer to write? <a href="mailto:hello@fluent.co.jp">hello@fluent.co.jp</a></p>
     </div>
@@ -561,7 +546,7 @@ body.menu-open{overflow:hidden}
   .rq-opts{ display:flex; flex-wrap:wrap; justify-content:center; gap:.7rem; }
   .rq-opt{ font-family:var(--font-body); font-size:.9rem; letter-spacing:.02em; color:var(--ink); background:var(--paper); border:1px solid rgba(33,30,25,.3); border-radius:999px; padding:.78rem 1.45rem; cursor:pointer; transition:border-color .3s, background .3s, color .3s; box-shadow:0 1px 2px rgba(33,30,25,.04); }
   .rq-opt:hover{ border-color:var(--accent); }
-  .rq-opt.on{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+  .rq-opt.on{ background:var(--accent); color:#F3EEE3; border-color:var(--accent); }
   .rq-hint{ text-align:center; font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); margin-top:1.5rem; }
   .rq-fields{ display:flex; flex-direction:column; gap:1.3rem; max-width:420px; margin:0 auto; }
   .rq-f{ display:flex; flex-direction:column; gap:.5rem; text-align:left; }
@@ -576,8 +561,8 @@ body.menu-open{overflow:hidden}
   .rq-next:hover{ background:transparent!important; color:var(--ink)!important; }
   .rq-next .arw{ transition:transform .35s; }
   .rq-next:hover .arw{ transform:translateX(4px); }
-  #rqNext{background:#1C1B19!important;color:#EFEAE0!important;border:1px solid #1C1B19!important;border-radius:999px!important;padding:.95rem 1.85rem!important}
-  #rqNext:hover{background:transparent!important;color:#1C1B19!important}
+  #rqNext{background:#5B4A38!important;color:#F3EEE3!important;border:1px solid #5B4A38!important;border-radius:999px!important;padding:.95rem 1.85rem!important}
+  #rqNext:hover{background:transparent!important;color:#5B4A38!important}
   .rq-foot{ text-align:center; margin-top:2.6rem; font-size:.78rem; color:var(--ink-faint); letter-spacing:.03em; }
   .rq-foot a{ color:var(--accent-deep); text-decoration:none; border-bottom:1px solid var(--line); }
   .rq-done{ text-align:center; max-width:40ch; margin:0 auto; padding:2.4rem 0; }
@@ -638,7 +623,7 @@ body.menu-open{overflow:hidden}
       });})(bs[k]);}
     }
     function shake(){try{next.animate([{transform:"translateX(0)"},{transform:"translateX(-5px)"},{transform:"translateX(5px)"},{transform:"translateX(0)"}],{duration:260});}catch(e){}}
-    function top(){var el=document.getElementById("contact");if(el)el.scrollIntoView({behavior:"smooth",block:"start"});}
+    function top(){var el=document.getElementById("rq");if(el&&!el.hidden)el.scrollIntoView({behavior:"smooth",block:"center"});}
     next.addEventListener("click",function(){
       if(idx<N){var s=STEPS[idx];if(s.req&&!A[s.id]){shake();return;}idx++;render();top();}
       else{
@@ -647,7 +632,7 @@ body.menu-open{overflow:hidden}
         var ph=(document.getElementById("rqPhone")||{}).value||"", ms=(document.getElementById("rqMsg")||{}).value||"";
         var L=[]; for(var k=0;k<STEPS.length;k++){var s=STEPS[k],a=A[s.id];if(a&&(!(a instanceof Array)||a.length))L.push(s.q+"  "+((a instanceof Array)?a.join(", "):a));}
         var body="New property request via fluent.co.jp\n\n"+L.join("\n")+"\n\nName: "+nm+"\nEmail: "+em+"\nPhone: "+ph+"\nNotes: "+ms;
-        function done(){document.getElementById("rq").hidden=true;var intro=document.querySelector(".rq-intro");if(intro)intro.hidden=true;document.getElementById("rqDone").hidden=false;top();}
+        function done(){document.getElementById("rq").hidden=true;var intro=document.querySelector(".rq-intro");if(intro)intro.hidden=true;var dn=document.getElementById("rqDone");dn.hidden=false;dn.scrollIntoView({behavior:"smooth",block:"center"});}
         function mfb(){try{window.location.href="mailto:hello@fluent.co.jp?subject="+encodeURIComponent("New Property Request — FLUENT")+"&body="+encodeURIComponent(body);}catch(e){}}
         next.disabled=true; next.innerHTML="Sending…";
         try{fetch("https://formspree.io/f/mqpzzaov",{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({name:nm,email:em,phone:ph,message:body,_subject:"New Property Request — FLUENT"})}).then(function(r){done();}).catch(function(){mfb();done();});}catch(e){mfb();done();}
@@ -658,7 +643,41 @@ body.menu-open{overflow:hidden}
   })();
   </script>
 </section>
+  <a class="mobile-cta" id="mobileCta" href="#contact" aria-label="Find my property">Find my property <span>&rarr;</span></a>
 </main>
+
+<style>
+/* ③ mid-page CTA */
+.mid-cta{ max-width:52ch; margin:4.6rem auto 0; text-align:center; }
+.mid-cta .mc-h{ font-family:var(--font-display); font-weight:400; font-size:clamp(1.4rem,2.6vw,1.95rem); line-height:1.25; color:var(--ink); margin-bottom:.9rem; text-wrap:balance; }
+.mid-cta .mc-b{ font-size:.9rem; line-height:1.75; color:var(--ink-soft); margin:0 auto 1.9rem; max-width:44ch; }
+.mid-cta .mc-btn{ display:inline-flex; align-items:center; gap:.6rem; font-family:var(--font-body); font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; color:#F3EEE3; background:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:.9rem 1.9rem; text-decoration:none; transition:background .35s,color .35s; }
+.mid-cta .mc-btn:hover{ background:transparent; color:var(--accent); }
+.mid-cta .mc-btn span{ transition:transform .35s; }
+.mid-cta .mc-btn:hover span{ transform:translateX(4px); }
+/* ② mobile fixed CTA — thin, minimal, Quiet Luxury */
+.mobile-cta{ position:fixed; left:50%; bottom:calc(env(safe-area-inset-bottom,0px) + 14px); z-index:60; display:none; align-items:center; gap:.5rem; font-family:var(--font-body); font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:#F3EEE3; background:var(--accent); border:1px solid var(--accent-deep); border-radius:999px; padding:.72rem 1.5rem; text-decoration:none; box-shadow:0 6px 20px rgba(33,30,25,.22); white-space:nowrap; opacity:0; transform:translateX(-50%) translateY(150%); transition:transform .45s cubic-bezier(.22,.61,.36,1),opacity .45s ease; }
+.mobile-cta.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+.mobile-cta span{ transition:transform .35s; }
+@media(max-width:600px){ .mobile-cta{ display:inline-flex; } }
+</style>
+<script>
+(function(){
+  var cta=document.getElementById("mobileCta"), target=document.getElementById("contact");
+  if(!cta||!target) return;
+  var inView=false;
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){inView=es[0].isIntersecting;upd();},{threshold:0.02}).observe(target);
+  }
+  function upd(){
+    var past=window.scrollY > window.innerHeight*0.55;
+    if(past && !inView) cta.classList.add("show"); else cta.classList.remove("show");
+  }
+  window.addEventListener("scroll",upd,{passive:true});
+  window.addEventListener("resize",upd,{passive:true});
+  upd();
+})();
+</script>
 
 <footer>
   <div class="wrap">
@@ -734,7 +753,7 @@ body.menu-open{overflow:hidden}
       "svc.6t":"Education & Schools","svc.6d":"Placing children in the international and Japanese schools that truly fit them.",
       "svc.7t":"Daily Life Support","svc.7d":"Banking, utilities, healthcare, household — the invisible groundwork of settling in.",
       "svc.8t":"Wealth & Assets","svc.8d":"Structuring and growing your position in Japan alongside dedicated planners.",
-      "why.eyebrow":"Why FLUENT","why.h2":"We are not brokers.<br>We are lifestyle concierges.",
+      "why.eyebrow":"Why FLUENT","why.h2":"More than real estate.<br>Your lifestyle concierge in Tokyo.",
       "why.1t":"We live where you'll live","why.1d":"Minato and Shibuya are not territories to us — they are home. We advise from lived experience, not listings.",
       "why.2t":"Fluent in more than language","why.2d":"English, Japanese, and Chinese — and equally, the customs, etiquette, and unspoken rules that shape daily life here.",
       "why.3t":"One relationship, not ten vendors","why.3d":"Property, company, school, wealth — held under a single, discreet relationship that remembers everything.",
@@ -749,7 +768,7 @@ body.menu-open{overflow:hidden}
       "team.m4r":"China Relations","team.m4n":"King","team.m4d":"Mandarin-speaking counsel and a trusted network among Chinese private clients.",
       "life.eyebrow":"Tokyo Lifestyle","life.h2":"The city, as a resident reads it.","life.lede":"Beyond the address is a way of living — measured in mornings, seasons, and the places only locals keep.",
       "life.c1k":"Minato · Residence","life.c1t":"Quiet mornings above the city","life.c2k":"Culture","life.c2t":"Seasons, kept","life.c3k":"Dining","life.c3t":"A table held for you",
-      "prop.eyebrow":"Featured Residences","prop.h2":"A considered few.","prop.lede":"We show little, and only what we would live in ourselves. Full portfolios by private introduction.",
+      "prop.eyebrow":"Inspired Living","prop.h2":"A Glimpse of Life in Tokyo","prop.lede":"The residences shown here are for inspiration only — a sense of the homes and neighbourhoods FLUENT curates around you.",
       "prop.forsale":"For Sale","prop.forlease":"For Lease","prop.enquire":"Enquire",
       "prop.p1loc":"Minato · Azabudai","prop.p1t":"The Hill Residence","prop.p1d":"A full-floor residence with city and bay outlook, private lift, and concierge floor.",
       "prop.p2loc":"Shibuya · Shoto","prop.p2t":"Shoto Garden House","prop.p2d":"A low-rise home on Tokyo's most private street, with an inner garden and quiet light.",
@@ -789,7 +808,7 @@ body.menu-open{overflow:hidden}
       "svc.6t":"学校・教育","svc.6d":"お子様に本当に合う、インターナショナル校・日本の学校へお繋ぎします。",
       "svc.7t":"生活サポート","svc.7d":"銀行、公共料金、医療、家事——暮らしを支える、見えない土台づくり。",
       "svc.8t":"資産形成サポート","svc.8d":"専任のプランナーとともに、日本での資産を組み立て、育てます。",
-      "why.eyebrow":"選ばれる理由","why.h2":"私たちは、仲介業者ではありません。<br>ライフスタイル・コンシェルジュです。",
+      "why.eyebrow":"選ばれる理由","why.h2":"不動産の、その先へ。<br>東京での暮らしを支えるコンシェルジュ。",
       "why.1t":"私たちも、あなたが住む街に暮らす","why.1d":"港区と渋谷区は、私たちにとって「エリア」ではなく「我が家」。物件情報ではなく、暮らした実感から助言します。",
       "why.2t":"言葉以上に、流暢であること","why.2d":"英語、日本語、中国語。そして同じく、この国の暮らしを形づくる習慣・作法・暗黙の了解にも。",
       "why.3t":"十の業者ではなく、一つの関係を","why.3d":"不動産、会社、学校、資産——すべてを覚えている、一つの慎ましい関係のもとで。",
@@ -804,7 +823,7 @@ body.menu-open{overflow:hidden}
       "team.m4r":"中国業務","team.m4n":"King","team.m4d":"中国語での対応と、中国人プライベート顧客との信頼のネットワーク。",
       "life.eyebrow":"東京での暮らし","life.h2":"住民が読み解く、この街。","life.lede":"住所の先にあるのは、一つの生き方。朝、季節、そして地元の人だけが知る場所で計られる。",
       "life.c1k":"港区 · 住まい","life.c1t":"街を見下ろす、静かな朝","life.c2k":"文化","life.c2t":"季節を、大切に","life.c3k":"食","life.c3t":"あなたのための、一席",
-      "prop.eyebrow":"厳選の住まい","prop.h2":"選び抜いた、わずかを。","prop.lede":"お見せするのはわずか、それも自分が住みたいものだけ。全リストは非公開・紹介制で。",
+      "prop.eyebrow":"東京の暮らし","prop.h2":"東京での暮らしの、ひとこま。","prop.lede":"掲載の住まいはすべてイメージです。FLUENTがご提案する住まいと街の雰囲気をお伝えします。",
       "prop.forsale":"売買","prop.forlease":"賃貸","prop.enquire":"応相談",
       "prop.p1loc":"港区 · 麻布台","prop.p1t":"ザ・ヒル レジデンス","prop.p1d":"街と湾を見晴らすワンフロア住戸。専用エレベーター、コンシェルジュ階付き。",
       "prop.p2loc":"渋谷区 · 松濤","prop.p2t":"松濤ガーデンハウス","prop.p2d":"東京でもっとも閑静な通りの低層邸宅。内庭と、静かな光。",
@@ -844,7 +863,7 @@ body.menu-open{overflow:hidden}
       "svc.6t":"教育与择校","svc.6d":"为孩子对接真正合适的国际学校与日本学校。",
       "svc.7t":"生活支持","svc.7d":"银行、水电、医疗、家务——安顿生活的无形基石。",
       "svc.8t":"财富与资产","svc.8d":"携手专属规划师，构建并增长您在日本的资产。",
-      "why.eyebrow":"为何选择 FLUENT","why.h2":"我们不是中介，<br>而是生活方式管家。",
+      "why.eyebrow":"为何选择 FLUENT","why.h2":"不止于房地产，<br>您在东京的生活方式管家。",
       "why.1t":"我们就住在您将居住的地方","why.1d":"港区与涩谷于我们并非「辖区」，而是家园。我们凭亲身生活而非房源清单给出建议。",
       "why.2t":"流畅的，不只是语言","why.2d":"英语、日语、中文——同样精通塑造此地日常的习俗、礼仪与不成文的规矩。",
       "why.3t":"一段关系，而非十个供应商","why.3d":"房产、公司、学校、财富——尽在一段记得一切、审慎低调的关系之中。",
@@ -859,7 +878,7 @@ body.menu-open{overflow:hidden}
       "team.m4r":"中国事务","team.m4n":"King","team.m4d":"中文顾问，及深受中国私人客户信赖的网络。",
       "life.eyebrow":"东京生活","life.h2":"以居民之眼，阅读这座城市。","life.lede":"地址之外，是一种生活方式——以清晨、四季，以及唯有本地人珍藏的去处来丈量。",
       "life.c1k":"港区 · 居所","life.c1t":"俯瞰城市的静谧清晨","life.c2k":"文化","life.c2t":"珍存四季","life.c3k":"餐饮","life.c3t":"为您留座",
-      "prop.eyebrow":"精选住宅","prop.h2":"甄选数处。","prop.lede":"我们只展示少数，且皆为自己愿居之所。完整清单凭私人引荐提供。",
+      "prop.eyebrow":"东京生活","prop.h2":"东京生活的一隅。","prop.lede":"此处展示的住宅仅为意象，呈现FLUENT为您甄选的住居与街区氛围。",
       "prop.forsale":"出售","prop.forlease":"出租","prop.enquire":"详询",
       "prop.p1loc":"港区 · 麻布台","prop.p1t":"麻布台山丘寓所","prop.p1d":"俯瞰城市与海湾的整层住宅，配私人电梯与礼宾楼层。",
       "prop.p2loc":"涩谷区 · 松涛","prop.p2t":"松涛庭院宅邸","prop.p2d":"坐落东京最私密街道的低层宅邸，含内庭与静谧光线。",
@@ -899,7 +918,7 @@ body.menu-open{overflow:hidden}
       "svc.6t":"教育與擇校","svc.6d":"為孩子對接真正合適的國際學校與日本學校。",
       "svc.7t":"生活支持","svc.7d":"銀行、水電、醫療、家務——安頓生活的無形基石。",
       "svc.8t":"財富與資產","svc.8d":"攜手專屬規劃師，構建並增長您在日本的資產。",
-      "why.eyebrow":"為何選擇 FLUENT","why.h2":"我們不是仲介，<br>而是生活方式管家。",
+      "why.eyebrow":"為何選擇 FLUENT","why.h2":"不止於房地產，<br>您在東京的生活方式管家。",
       "why.1t":"我們就住在您將居住的地方","why.1d":"港區與澀谷於我們並非「轄區」，而是家園。我們憑親身生活而非房源清單給出建議。",
       "why.2t":"流暢的，不只是語言","why.2d":"英語、日語、中文——同樣精通塑造此地日常的習俗、禮儀與不成文的規矩。",
       "why.3t":"一段關係，而非十個供應商","why.3d":"房產、公司、學校、財富——盡在一段記得一切、審慎低調的關係之中。",
@@ -914,7 +933,7 @@ body.menu-open{overflow:hidden}
       "team.m4r":"中國事務","team.m4n":"King","team.m4d":"中文顧問，及深受中國私人客戶信賴的網絡。",
       "life.eyebrow":"東京生活","life.h2":"以居民之眼，閱讀這座城市。","life.lede":"地址之外，是一種生活方式——以清晨、四季，以及唯有本地人珍藏的去處來丈量。",
       "life.c1k":"港區 · 居所","life.c1t":"俯瞰城市的靜謐清晨","life.c2k":"文化","life.c2t":"珍存四季","life.c3k":"餐飲","life.c3t":"為您留座",
-      "prop.eyebrow":"精選住宅","prop.h2":"甄選數處。","prop.lede":"我們只展示少數，且皆為自己願居之所。完整清單憑私人引薦提供。",
+      "prop.eyebrow":"東京生活","prop.h2":"東京生活的一隅。","prop.lede":"此處展示的住宅僅為意象，呈現FLUENT為您甄選的住居與街區氛圍。",
       "prop.forsale":"出售","prop.forlease":"出租","prop.enquire":"詳詢",
       "prop.p1loc":"港區 · 麻布台","prop.p1t":"麻布台山丘寓所","prop.p1d":"俯瞰城市與海灣的整層住宅，配私人電梯與禮賓樓層。",
       "prop.p2loc":"澀谷區 · 松濤","prop.p2t":"松濤庭園宅邸","prop.p2d":"坐落東京最私密街道的低層宅邸，含內庭與靜謐光線。",
