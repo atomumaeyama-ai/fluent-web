@@ -127,6 +127,22 @@
   .catch-copy .q{color:var(--accent)}
   .catch-sub{margin-top:1.3rem;color:var(--ink-soft);font-size:clamp(1rem,1.6vw,1.16rem);line-height:1.85}
 
+  /* two referral routes */
+  .routes{display:grid;gap:1rem;grid-template-columns:1fr;margin-top:1rem}
+  @media(min-width:760px){.routes{grid-template-columns:1fr 1fr}}
+  .route{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:clamp(1.4rem,3vw,2rem);display:flex;flex-direction:column;gap:.7rem;align-items:flex-start}
+  .route-n{font-family:var(--font-display);font-size:1.5rem;color:var(--accent);line-height:1}
+  .route h3{font-size:1.2rem}
+  .route p{color:var(--ink-soft);font-size:.96rem;line-height:1.8;flex:1;margin:0}
+  .route .btn{margin-top:.5rem}
+  .hero-actions .btn{white-space:nowrap}
+  @media(max-width:560px){.hero-actions{flex-direction:column;align-items:stretch}.hero-actions .btn{justify-content:center}}
+
+  /* toast (copy feedback) */
+  .toast{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%) translateY(18px);background:var(--ink);color:var(--paper);padding:.8rem 1.3rem;border-radius:999px;font-size:.9rem;line-height:1.5;box-shadow:0 10px 34px var(--shadow);opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease;z-index:100;max-width:90vw;text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (prefers-reduced-motion:reduce){.toast{transition:opacity .2s}}
+
   footer{border-top:1px solid var(--line);padding-block:2.4rem;color:var(--ink-faint);font-size:.86rem}
   .foot-row{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
   .foot-brand{font-family:var(--font-display);letter-spacing:.3em;text-indent:.3em;color:var(--ink);font-size:1.1rem;text-decoration:none}
@@ -150,8 +166,8 @@
       <h1 class="display">外国人のお知り合いが、<br>東京で家を探していませんか？</h1>
       <p class="sub">FLUENTは、住まい探しから東京での暮らしまで、<strong>英語で直接サポート</strong>するブティック不動産です。その方をご紹介ください。あとは、FLUENTにお任せください。</p>
       <div class="hero-actions">
-        <a class="btn btn-solid" href="#contact">ご紹介・ご相談はこちら</a>
-        <a class="btn btn-ghost" href="#about">FLUENTについて</a>
+        <a class="btn btn-solid" href="#contact" data-cta="form">FLUENTへ紹介する</a>
+        <button class="btn btn-ghost" type="button" data-cta="share">外国人の方にFLUENTを紹介する</button>
       </div>
     </div>
   </section>
@@ -197,6 +213,30 @@
         <div class="g-card"><span class="k">海外エージェント</span><p>東京の信頼できる現地パートナーとして。</p></div>
       </div>
       <p class="prose" style="margin-top:1.4rem"><em style="color:var(--ink-soft)">もちろん、外国人のご友人・知人が東京で家を探している——という個人の方からのご紹介も歓迎します。</em></p>
+    </div>
+  </section>
+
+  <!-- TWO ROUTES -->
+  <section id="how" style="background:var(--paper-3)">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">ご紹介の方法</span>
+        <h2 class="display">2つの方法で、<br>ご紹介いただけます。</h2>
+      </div>
+      <div class="routes">
+        <div class="route">
+          <div class="route-n">01</div>
+          <h3 class="display">FLUENTへ紹介する</h3>
+          <p>ご本人の同意を得たうえで、フォームからご紹介ください。FLUENTから、ご本人へ英語で直接ご連絡します。</p>
+          <a class="btn btn-solid" href="#contact" data-cta="form">FLUENTへ紹介する</a>
+        </div>
+        <div class="route">
+          <div class="route-n">02</div>
+          <h3 class="display">ご本人にFLUENTを送る</h3>
+          <p>外国人のご友人・お客様へ、FLUENTの英語ページをそのままお送りいただけます。ご本人に直接お送りいただけるので、連絡先などをご入力いただく必要はありません。</p>
+          <button class="btn btn-ghost" type="button" data-cta="share">英語ページを送る</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -280,6 +320,8 @@
   </section>
 </main>
 
+<div id="shareToast" class="toast" role="status" aria-live="polite"></div>
+
 <footer>
   <div class="wrap foot-row">
     <a class="foot-brand" href="https://fluent.co.jp/">FLUENT</a>
@@ -321,6 +363,35 @@
         .then(function(r){ r.ok?ok():fail(); }).catch(fail);
     }catch(err){ fail(); }
   });
+
+  /* ---- 紹介ルート: 共有(Web Share API)＋コピー＋計測 ---- */
+  var SHARE_URL = "https://fluent.co.jp/lp/"; // 外国人本人へ送るのは英語LP
+  var SHARE_TEXT = "I thought this might be helpful for your home search in Tokyo. FLUENT provides English-speaking real estate and relocation support.";
+  function track(ev){ try{ if(typeof window.gtag==="function"){ window.gtag("event",ev); } window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:ev}); }catch(e){} }
+  var toast=document.getElementById("shareToast"), toastT;
+  function showToast(msg){ if(!toast) return; toast.textContent=msg; toast.classList.add("show"); clearTimeout(toastT); toastT=setTimeout(function(){ toast.classList.remove("show"); },3800); }
+  function legacyCopy(t){
+    try{ var ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="absolute"; ta.style.left="-9999px";
+      document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+      track("copy_english_lp"); showToast("英語ページのURLをコピーしました。メールやチャットに貼り付けてお送りください。");
+    }catch(e){ showToast("コピーできませんでした。URL：" + SHARE_URL); }
+  }
+  function copyText(t){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){ track("copy_english_lp"); showToast("英語ページのURLをコピーしました。メールやチャットに貼り付けてお送りください。"); }).catch(function(){ legacyCopy(t); });
+    } else { legacyCopy(t); }
+  }
+  function shareFluent(){
+    track("share_english_lp_click");
+    if(navigator.share){
+      navigator.share({title:"FLUENT", text:SHARE_TEXT, url:SHARE_URL})
+        .then(function(){ track("share_success"); }).catch(function(){});
+    } else {
+      copyText(SHARE_TEXT + "\n" + SHARE_URL);
+    }
+  }
+  document.querySelectorAll('[data-cta="share"]').forEach(function(b){ b.addEventListener("click", shareFluent); });
+  document.querySelectorAll('[data-cta="form"]').forEach(function(b){ b.addEventListener("click", function(){ track("referral_form_click"); }); });
 })();
 </script>
 </body></html>
