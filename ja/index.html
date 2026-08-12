@@ -143,6 +143,19 @@
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   @media (prefers-reduced-motion:reduce){.toast{transition:opacity .2s}}
 
+  /* share panel (PC fallback) */
+  .share-modal{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:1.2rem;background:color-mix(in srgb,var(--ink) 45%,transparent);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+  .share-modal.open{display:flex}
+  .share-card{background:var(--paper-2);border:1px solid var(--line);border-radius:20px;padding:clamp(1.6rem,4vw,2.4rem);max-width:440px;width:100%;position:relative;box-shadow:0 24px 64px var(--shadow)}
+  .share-close{position:absolute;top:.8rem;right:1rem;background:none;border:none;font-size:1.7rem;line-height:1;color:var(--ink-soft);cursor:pointer;font-family:var(--font-body)}
+  .share-close:hover{color:var(--ink)}
+  .share-eyebrow{font-size:.74rem;letter-spacing:.16em;color:var(--accent);font-weight:600;margin-bottom:.5rem}
+  .share-title{font-family:var(--font-display);font-size:1.35rem;margin-bottom:.5rem;line-height:1.4}
+  .share-lead{color:var(--ink-soft);font-size:.95rem;line-height:1.8;margin-bottom:1.2rem}
+  .share-actions{display:flex;flex-direction:column;gap:.6rem}
+  .share-actions .btn{justify-content:center;width:100%}
+  .share-url{margin-top:1rem;font-size:.8rem;color:var(--ink-faint);word-break:break-all;text-align:center}
+
   footer{border-top:1px solid var(--line);padding-block:2.4rem;color:var(--ink-faint);font-size:.86rem}
   .foot-row{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
   .foot-brand{font-family:var(--font-display);letter-spacing:.3em;text-indent:.3em;color:var(--ink);font-size:1.1rem;text-decoration:none}
@@ -320,6 +333,21 @@
   </section>
 </main>
 
+<div class="share-modal" id="shareModal" aria-hidden="true">
+  <div class="share-card" role="dialog" aria-modal="true" aria-label="外国人の方にFLUENTを紹介する">
+    <button class="share-close" id="shareClose" aria-label="閉じる">&times;</button>
+    <p class="share-eyebrow">外国人の方にFLUENTを紹介する</p>
+    <p class="share-title display">FLUENTの英語ページを送る</p>
+    <p class="share-lead">外国人のご友人・お客様へ、FLUENTの英語ページをお送りいただけます。まず内容をご覧いただくこともできます。</p>
+    <div class="share-actions">
+      <a class="btn btn-solid" id="shareMail" href="#">メールで送る</a>
+      <button class="btn btn-ghost" id="shareCopy" type="button">URLをコピー</button>
+      <a class="btn btn-ghost" id="shareOpen" href="https://fluent.co.jp/lp/" target="_blank" rel="noopener">英語ページを開く（プレビュー）</a>
+    </div>
+    <p class="share-url">https://fluent.co.jp/lp/</p>
+  </div>
+</div>
+
 <div id="shareToast" class="toast" role="status" aria-live="polite"></div>
 
 <footer>
@@ -381,17 +409,32 @@
       navigator.clipboard.writeText(t).then(function(){ track("copy_english_lp"); showToast("英語ページのURLをコピーしました。メールやチャットに貼り付けてお送りください。"); }).catch(function(){ legacyCopy(t); });
     } else { legacyCopy(t); }
   }
+  var modal=document.getElementById("shareModal");
+  function openShareModal(){
+    if(!modal) return;
+    var mail=document.getElementById("shareMail");
+    if(mail) mail.setAttribute("href","mailto:?subject="+encodeURIComponent("FLUENT — English-speaking real estate & relocation in Tokyo")+"&body="+encodeURIComponent(SHARE_TEXT+"\n\n"+SHARE_URL));
+    modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden";
+  }
+  function closeShareModal(){ if(!modal) return; modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); document.body.style.overflow=""; }
   function shareFluent(){
     track("share_english_lp_click");
     if(navigator.share){
       navigator.share({title:"FLUENT", text:SHARE_TEXT, url:SHARE_URL})
         .then(function(){ track("share_success"); }).catch(function(){});
     } else {
-      copyText(SHARE_TEXT + "\n" + SHARE_URL);
+      openShareModal(); // PC等: 共有パネルを表示
     }
   }
   document.querySelectorAll('[data-cta="share"]').forEach(function(b){ b.addEventListener("click", shareFluent); });
   document.querySelectorAll('[data-cta="form"]').forEach(function(b){ b.addEventListener("click", function(){ track("referral_form_click"); }); });
+  if(modal){
+    var sc=document.getElementById("shareClose"); if(sc) sc.addEventListener("click", closeShareModal);
+    modal.addEventListener("click", function(e){ if(e.target===modal) closeShareModal(); });
+    document.addEventListener("keydown", function(e){ if(e.key==="Escape" && modal.classList.contains("open")) closeShareModal(); });
+    var cp=document.getElementById("shareCopy"); if(cp) cp.addEventListener("click", function(){ copyText(SHARE_URL); });
+    var so=document.getElementById("shareOpen"); if(so) so.addEventListener("click", function(){ track("share_success"); });
+  }
 })();
 </script>
 </body></html>
