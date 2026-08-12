@@ -176,6 +176,24 @@
   html[lang="ja"] .member .role,html[lang^="zh"] .member .role{letter-spacing:.1em}
   .member .name{font-family:var(--font-display);font-size:1.5rem;font-weight:400;margin-top:.1rem}
   .member .desc{font-size:.9rem;color:var(--ink-soft);margin-top:.6rem}
+  .team-featured{display:flex;gap:2.6rem;align-items:center;max-width:760px;margin:0 auto;padding-bottom:2.6rem;border-bottom:1px solid var(--line)}
+  .team-featured .tf-body{display:flex;flex-direction:column;gap:.45rem}
+  .team-featured .role,.team-second .role{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+  html[lang^="zh"] .team-featured .role,html[lang^="zh"] .team-second .role{letter-spacing:.1em}
+  .team-featured .name{font-family:var(--font-display);font-weight:400;font-size:2rem;line-height:1.12}
+  .team-featured .desc{font-size:.94rem;color:var(--ink-soft);margin-top:.7rem;max-width:46ch}
+  .tf-tag{font-family:var(--font-display);font-style:italic;font-size:1.1rem;color:var(--accent-deep);margin-top:.2rem}
+  .team-second{display:flex;gap:2rem;align-items:center;max-width:760px;margin:2.4rem auto 0}
+  .team-second .ts-body{display:flex;flex-direction:column;gap:.4rem}
+  .team-second .name{font-family:var(--font-display);font-weight:400;font-size:1.45rem;line-height:1.12}
+  .team-second .desc{font-size:.88rem;color:var(--ink-soft);margin-top:.5rem;max-width:46ch}
+  .portrait-lg{width:140px;height:140px;margin-bottom:0;flex:none}
+  .portrait-sm{width:120px;height:120px;margin-bottom:0;flex:none}
+  .team-featured:hover .portrait,.team-second:hover .portrait{filter:grayscale(0)}
+  .team-network{max-width:640px;margin:3rem auto 0;text-align:center}
+  .team-network .eyebrow{display:block;margin-bottom:.9rem}
+  .team-network p{font-size:.9rem;color:var(--ink-faint);line-height:1.75}
+  @media(max-width:600px){.team-featured,.team-second{flex-direction:column;text-align:center;gap:1.3rem}.team-featured .desc,.team-second .desc{max-width:none}}
 
   #lifestyle{background:var(--paper-2)}
   .life-grid{display:grid;grid-template-columns:1fr;gap:1.4rem}
@@ -444,9 +462,26 @@ body.menu-open{overflow:hidden}
         <h2 class="display" data-i18n="team.h2">People, first.</h2>
         <p class="lede" data-i18n="team.lede">A small team by design — so that the person who answers your first message is the person who sees it through.</p>
       </div>
-      <div class="team-grid stagger">
-        <article class="member reveal"><div class="portrait" data-portrait="team1"></div><span class="role" data-i18n="team.m1r">Managing Director</span><span class="name">Atomu Maeyama</span><span class="desc" data-i18n="team.m1d">Luxury sales &amp; leasing, and market-entry into Japan. The first hand you shake.</span></article>
-        <article class="member reveal"><div class="portrait" data-portrait="team2"></div><span class="role" data-i18n="team.m2r">Partner</span><span class="name">Yumi Maeyama</span><span class="desc" data-i18n="team.m2d">Family relocation, education, life planning, and long-term wealth for those settling in.</span></article>
+      <div class="team-featured reveal">
+        <div class="portrait portrait-lg" data-portrait="team2"></div>
+        <div class="tf-body">
+          <span class="role" data-i18n="team.m2r">Partner</span>
+          <span class="name">Yumi Maeyama</span>
+          <span class="tf-tag" data-i18n="team.m2tag">Your Point of Contact in Tokyo</span>
+          <span class="desc" data-i18n="team.m2d">Family relocation, property search, education, life planning, and long-term support for those settling in Tokyo.</span>
+        </div>
+      </div>
+      <div class="team-second reveal">
+        <div class="portrait portrait-sm" data-portrait="team1"></div>
+        <div class="ts-body">
+          <span class="role" data-i18n="team.m1r">Managing Director</span>
+          <span class="name">Atomu Maeyama</span>
+          <span class="desc" data-i18n="team.m1d">Luxury sales &amp; leasing, and market-entry into Japan. The first hand you shake.</span>
+        </div>
+      </div>
+      <div class="team-network reveal">
+        <span class="eyebrow" data-i18n="team.networkH">FLUENT Team &amp; Network</span>
+        <p data-i18n="team.network">Behind your point of contact, a small FLUENT team and a trusted network of specialists — property, legal, tax, education, and wealth.</p>
       </div>
     </div>
   </section>
@@ -473,8 +508,7 @@ body.menu-open{overflow:hidden}
     <div class="wrap">
       <div class="sec-head reveal">
         <span class="eyebrow" data-i18n="prop.eyebrow">Inspired Living</span>
-        <h2 class="display" data-i18n="prop.h2">Residences, selected around you.</h2>
-        <p class="lede" data-i18n="prop.lede">The residences shown here are for inspiration only — a sense of the homes and neighbourhoods FLUENT curates around you.</p>
+        <h2 class="display" data-i18n="prop.h2">A Glimpse of Life in Tokyo</h2>
       </div>
       <div class="prop-grid stagger">
         <a class="prop reveal" href="#contact"><div class="frame"><div class="art" data-art="tower"></div></div></a>
@@ -764,12 +798,12 @@ body.menu-open{overflow:hidden}
       "why.tag1":"Schools","why.tag2":"Dining","why.tag3":"Neighbourhoods","why.tag4":"Community","why.tag5":"Education","why.tag6":"Investment","why.tag7":"Culture",
       "why.i1t":"Schools & Education","why.i1d":"From nursery to IB — placement into the school that fits.","why.i2t":"Dining & Reservations","why.i2d":"Tables at the places that don’t take walk-ins.","why.i3t":"Neighbourhoods","why.i3d":"Where to live in Tokyo, street by street.","why.i4t":"Community","why.i4d":"Introductions into Tokyo’s international circles.","why.i5t":"Investment & Wealth","why.i5d":"Growing your position in Japan, quietly.","why.i6t":"Culture & Seasons","why.i6d":"The rituals that make a year in Tokyo.","band.e1":"Tokyo","band.t1":"A city that rewards those who know it.","band.e2":"Arrival","band.t2":"Begin where residents begin.","prop.inside":"Inside the Residences","team.eyebrow":"Meet the Team","team.h2":"People, first.","team.lede":"A small team by design — so that the person who answers your first message is the person who sees it through.",
       "team.m1r":"Managing Director","team.m1d":"Luxury sales & leasing, and market-entry into Japan. The first hand you shake.",
-      "team.m2r":"Partner","team.m2d":"Family relocation, education, life planning, and long-term wealth for those settling in.",
+      "team.m2r":"Partner","team.m2d":"Family relocation, property search, education, life planning, and long-term support for those settling in Tokyo.","team.m2tag":"Your Point of Contact in Tokyo","team.networkH":"FLUENT Team & Network","team.network":"Behind your point of contact, a small FLUENT team and a trusted network of specialists — property, legal, tax, education, and wealth.",
       "team.m3r":"Property Consultant","team.m3d":"International property advisor. Native English, New York–raised, at ease across cultures.",
       "team.m4r":"China Relations","team.m4n":"King","team.m4d":"Mandarin-speaking counsel and a trusted network among Chinese private clients.",
       "life.eyebrow":"Tokyo Lifestyle","life.h2":"The city, as a resident reads it.","life.lede":"Beyond the address is a way of living — measured in mornings, seasons, and the places only locals keep.",
       "life.c1k":"Minato · Residence","life.c1t":"Quiet mornings above the city","life.c2k":"Culture","life.c2t":"Seasons, kept","life.c3k":"Dining","life.c3t":"A table held for you",
-      "prop.eyebrow":"Inspired Living","prop.h2":"Residences, selected around you.","prop.lede":"The residences shown here are for inspiration only — a sense of the homes and neighbourhoods FLUENT curates around you.",
+      "prop.eyebrow":"Inspired Living","prop.h2":"A Glimpse of Life in Tokyo","prop.lede":"The residences shown here are for inspiration only — a sense of the homes and neighbourhoods FLUENT curates around you.",
       "prop.forsale":"For Sale","prop.forlease":"For Lease","prop.enquire":"Enquire",
       "prop.p1loc":"Minato · Azabudai","prop.p1t":"The Hill Residence","prop.p1d":"A full-floor residence with city and bay outlook, private lift, and concierge floor.",
       "prop.p2loc":"Shibuya · Shoto","prop.p2t":"Shoto Garden House","prop.p2d":"A low-rise home on Tokyo's most private street, with an inner garden and quiet light.",
@@ -819,12 +853,12 @@ body.menu-open{overflow:hidden}
       "why.tag1":"学校","why.tag2":"食","why.tag3":"街選び","why.tag4":"コミュニティ","why.tag5":"教育","why.tag6":"投資","why.tag7":"文化",
       "why.i1t":"学校・教育","why.i1d":"幼児教育からIBまで。お子様に本当に合う学校へ。","why.i2t":"食と予約","why.i2d":"一見お断りの名店にも、あなたの一席を。","why.i3t":"街選び","why.i3d":"東京の住まいを、通りひとつの単位で。","why.i4t":"コミュニティ","why.i4d":"東京の国際的なサークルへのご紹介。","why.i5t":"投資と資産","why.i5d":"日本での資産を、静かに育てる。","why.i6t":"文化と季節","why.i6d":"東京での一年をかたちづくる、しきたりを。","band.e1":"東京","band.t1":"知る者にこそ、東京は応える。","band.e2":"はじまり","band.t2":"住む人の視点から、始める。","prop.inside":"住まいの、内側へ","team.eyebrow":"チーム紹介","team.h2":"人が、すべての始まり。","team.lede":"あえて少人数で。最初のメッセージに応える者が、最後まで見届けます。",
       "team.m1r":"Managing Director","team.m1d":"高級不動産の売買・賃貸、そして日本進出。最初に握手を交わす人。",
-      "team.m2r":"Partner","team.m2d":"家族の移住、教育、ライフプラン、そして腰を据える方への長期の資産形成。",
+      "team.m2r":"Partner","team.m2d":"家族の移住、物件探し、教育、ライフプラン、そして東京で腰を据える方への長期サポート。","team.m2tag":"東京での、あなたの窓口。","team.networkH":"FLUENT チーム & ネットワーク","team.network":"窓口の背後には、少数精鋭のFLUENTチームと信頼できる専門家ネットワーク（不動産・法務・税務・教育・資産）。",
       "team.m3r":"国際不動産コンサルタント","team.m3d":"国際不動産アドバイザー。英語ネイティブ、ニューヨーク育ち、文化を越えて自在。",
       "team.m4r":"中国業務","team.m4n":"King","team.m4d":"中国語での対応と、中国人プライベート顧客との信頼のネットワーク。",
       "life.eyebrow":"東京での暮らし","life.h2":"住民が読み解く、この街。","life.lede":"住所の先にあるのは、一つの生き方。朝、季節、そして地元の人だけが知る場所で計られる。",
       "life.c1k":"港区 · 住まい","life.c1t":"街を見下ろす、静かな朝","life.c2k":"文化","life.c2t":"季節を、大切に","life.c3k":"食","life.c3t":"あなたのための、一席",
-      "prop.eyebrow":"東京の暮らし","prop.h2":"あなたを中心に、選ぶ住まい。","prop.lede":"掲載の住まいはすべてイメージです。FLUENTがご提案する住まいと街の雰囲気をお伝えします。",
+      "prop.eyebrow":"東京の暮らし","prop.h2":"東京での暮らしの情景","prop.lede":"掲載の住まいはすべてイメージです。FLUENTがご提案する住まいと街の雰囲気をお伝えします。",
       "prop.forsale":"売買","prop.forlease":"賃貸","prop.enquire":"応相談",
       "prop.p1loc":"港区 · 麻布台","prop.p1t":"ザ・ヒル レジデンス","prop.p1d":"街と湾を見晴らすワンフロア住戸。専用エレベーター、コンシェルジュ階付き。",
       "prop.p2loc":"渋谷区 · 松濤","prop.p2t":"松濤ガーデンハウス","prop.p2d":"東京でもっとも閑静な通りの低層邸宅。内庭と、静かな光。",
@@ -874,12 +908,12 @@ body.menu-open{overflow:hidden}
       "why.tag1":"学校","why.tag2":"餐饮","why.tag3":"街区","why.tag4":"社群","why.tag5":"教育","why.tag6":"投资","why.tag7":"文化",
       "why.i1t":"教育与择校","why.i1d":"从幼儿园到 IB，为孩子对接真正合适的学校。","why.i2t":"餐饮与预订","why.i2d":"在不接受临时到访的名店，为您留一席。","why.i3t":"街区甄选","why.i3d":"在东京择居，细至每一条街道。","why.i4t":"社群","why.i4d":"引荐进入东京的国际圈层。","why.i5t":"投资与财富","why.i5d":"让您在日本的资产，静静增长。","why.i6t":"文化与四季","why.i6d":"构筑东京一年的种种仪式与节令。","band.e1":"东京","band.t1":"懂它的人，东京自会回应。","band.e2":"抵达","band.t2":"从居住者的视角，开始。","prop.inside":"走进住宅内部","team.eyebrow":"认识团队","team.h2":"以人为先。","team.lede":"我们刻意保持小团队——回复您第一条讯息的人，将陪您走到最后。",
       "team.m1r":"Managing Director","team.m1d":"高端买卖与租赁，及进入日本市场。与您握手的第一人。",
-      "team.m2r":"Partner","team.m2d":"家庭迁居、教育、人生规划，以及为安顿者打理长期财富。",
+      "team.m2r":"Partner","team.m2d":"家庭迁居、物业寻觅、教育、人生规划，以及为在东京安顿者提供长期支持。","team.m2tag":"您在东京的专属联系人。","team.networkH":"FLUENT 团队与网络","team.network":"在您的联系人背后，是精悍的FLUENT团队与可信赖的专家网络——地产、法律、税务、教育与财富。",
       "team.m3r":"国际房产顾问","team.m3d":"国际房产顾问。英语母语，纽约成长，跨文化自如。",
       "team.m4r":"中国事务","team.m4n":"King","team.m4d":"中文顾问，及深受中国私人客户信赖的网络。",
       "life.eyebrow":"东京生活","life.h2":"以居民之眼，阅读这座城市。","life.lede":"地址之外，是一种生活方式——以清晨、四季，以及唯有本地人珍藏的去处来丈量。",
       "life.c1k":"港区 · 居所","life.c1t":"俯瞰城市的静谧清晨","life.c2k":"文化","life.c2t":"珍存四季","life.c3k":"餐饮","life.c3t":"为您留座",
-      "prop.eyebrow":"东京生活","prop.h2":"以您为中心，甄选住居。","prop.lede":"此处展示的住宅仅为意象，呈现FLUENT为您甄选的住居与街区氛围。",
+      "prop.eyebrow":"东京生活","prop.h2":"东京生活的一隅","prop.lede":"此处展示的住宅仅为意象，呈现FLUENT为您甄选的住居与街区氛围。",
       "prop.forsale":"出售","prop.forlease":"出租","prop.enquire":"详询",
       "prop.p1loc":"港区 · 麻布台","prop.p1t":"麻布台山丘寓所","prop.p1d":"俯瞰城市与海湾的整层住宅，配私人电梯与礼宾楼层。",
       "prop.p2loc":"涩谷区 · 松涛","prop.p2t":"松涛庭院宅邸","prop.p2d":"坐落东京最私密街道的低层宅邸，含内庭与静谧光线。",
@@ -929,12 +963,12 @@ body.menu-open{overflow:hidden}
       "why.tag1":"學校","why.tag2":"餐飲","why.tag3":"街區","why.tag4":"社群","why.tag5":"教育","why.tag6":"投資","why.tag7":"文化",
       "why.i1t":"教育與擇校","why.i1d":"從幼兒園到 IB，為孩子對接真正合適的學校。","why.i2t":"餐飲與預訂","why.i2d":"在不接受臨時到訪的名店，為您留一席。","why.i3t":"街區甄選","why.i3d":"在東京擇居，細至每一條街道。","why.i4t":"社群","why.i4d":"引薦進入東京的國際圈層。","why.i5t":"投資與財富","why.i5d":"讓您在日本的資產，靜靜增長。","why.i6t":"文化與四季","why.i6d":"構築東京一年的種種儀式與節令。","band.e1":"東京","band.t1":"懂它的人，東京自會回應。","band.e2":"抵達","band.t2":"從居住者的視角，開始。","prop.inside":"走進住宅內部","team.eyebrow":"認識團隊","team.h2":"以人為先。","team.lede":"我們刻意保持小團隊——回覆您第一則訊息的人，將陪您走到最後。",
       "team.m1r":"Managing Director","team.m1d":"高端買賣與租賃，及進入日本市場。與您握手的第一人。",
-      "team.m2r":"Partner","team.m2d":"家庭遷居、教育、人生規劃，以及為安頓者打理長期財富。",
+      "team.m2r":"Partner","team.m2d":"家庭遷居、物業尋覓、教育、人生規劃，以及為在東京安頓者提供長期支援。","team.m2tag":"您在東京的專屬聯絡人。","team.networkH":"FLUENT 團隊與網絡","team.network":"在您的聯絡人背後，是精悍的FLUENT團隊與可信賴的專家網絡——地產、法律、稅務、教育與財富。",
       "team.m3r":"國際房產顧問","team.m3d":"國際房產顧問。英語母語，紐約成長，跨文化自如。",
       "team.m4r":"中國事務","team.m4n":"King","team.m4d":"中文顧問，及深受中國私人客戶信賴的網絡。",
       "life.eyebrow":"東京生活","life.h2":"以居民之眼，閱讀這座城市。","life.lede":"地址之外，是一種生活方式——以清晨、四季，以及唯有本地人珍藏的去處來丈量。",
       "life.c1k":"港區 · 居所","life.c1t":"俯瞰城市的靜謐清晨","life.c2k":"文化","life.c2t":"珍存四季","life.c3k":"餐飲","life.c3t":"為您留座",
-      "prop.eyebrow":"東京生活","prop.h2":"以您為中心，甄選住居。","prop.lede":"此處展示的住宅僅為意象，呈現FLUENT為您甄選的住居與街區氛圍。",
+      "prop.eyebrow":"東京生活","prop.h2":"東京生活的一隅","prop.lede":"此處展示的住宅僅為意象，呈現FLUENT為您甄選的住居與街區氛圍。",
       "prop.forsale":"出售","prop.forlease":"出租","prop.enquire":"詳詢",
       "prop.p1loc":"港區 · 麻布台","prop.p1t":"麻布台山丘寓所","prop.p1d":"俯瞰城市與海灣的整層住宅，配私人電梯與禮賓樓層。",
       "prop.p2loc":"澀谷區 · 松濤","prop.p2t":"松濤庭園宅邸","prop.p2d":"坐落東京最私密街道的低層宅邸，含內庭與靜謐光線。",
