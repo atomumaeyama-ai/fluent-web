@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- 翻訳クラスター: 英語(/) ↔ 简体(/zh-cn/) ↔ 繁體(/zh-tw/)。相互hreflang -->
+  <url>
+    <loc>https://fluent.co.jp/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fluent.co.jp/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://fluent.co.jp/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://fluent.co.jp/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fluent.co.jp/"/>
+  </url>
+  <url>
+    <loc>https://fluent.co.jp/zh-cn/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fluent.co.jp/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://fluent.co.jp/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://fluent.co.jp/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fluent.co.jp/"/>
+  </url>
+  <url>
+    <loc>https://fluent.co.jp/zh-tw/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fluent.co.jp/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://fluent.co.jp/zh-cn/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://fluent.co.jp/zh-tw/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fluent.co.jp/"/>
+  </url>
+  <!-- 日本語 Referral LP（独立ページ・翻訳等価が無いため hreflang なし） -->
+  <url>
+    <loc>https://fluent.co.jp/ja/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- 既存の広告用LP -->
+  <url>
+    <loc>https://fluent.co.jp/lp/</loc>
+    <lastmod>2026-08-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+</urlset>
