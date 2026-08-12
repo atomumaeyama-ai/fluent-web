@@ -420,10 +420,11 @@
   function shareFluent(){
     track("share_english_lp_click");
     if(navigator.share){
-      navigator.share({title:"FLUENT", text:SHARE_TEXT, url:SHARE_URL})
+      // URL単体で共有（共有シートの「コピー」でもクリーンなURLだけがコピーされ、貼り付けても404にならない）
+      navigator.share({url:SHARE_URL})
         .then(function(){ track("share_success"); }).catch(function(){});
     } else {
-      openShareModal(); // PC等: 共有パネルを表示
+      openShareModal(); // 共有機能が無い環境: 共有パネルを表示
     }
   }
   document.querySelectorAll('[data-cta="share"]').forEach(function(b){ b.addEventListener("click", shareFluent); });
