@@ -628,10 +628,52 @@ body.menu-open{overflow:hidden}
   .prop-note .pn-h .pn-jp{ display:block; font-size:.92rem; color:var(--ink-soft); margin-top:.35rem; }
   .prop-note .pn-b{ font-size:.82rem; line-height:1.75; color:var(--ink-faint); max-width:56ch; margin:0 auto; }
   .prop-note .pn-jp2{ margin-top:.7rem; }
+  .rq-sub{ margin-top:1.7rem; }
+  .rq-subq{ text-align:center; font-size:.98rem; color:var(--ink-soft); margin:0 0 1rem; }
+  .rq-subf{ max-width:360px; margin:1.1rem auto 0; }
+  .rq-subf input{ text-align:center; }
   </style>
 
   <script>
   (function(){
+    /* ---- attribution capture (QR / UTM), persisted across pages ---- */
+    try{
+      var qp=new URLSearchParams(location.search);
+      var AK=["source","referrer","ref","utm_source","utm_medium","utm_campaign","utm_content","utm_term","gclid","fbclid"];
+      var store={}; try{store=JSON.parse(localStorage.getItem("fluent_attrib")||"{}");}catch(e){}
+      var got=false;
+      for(var ai=0;ai<AK.length;ai++){var vv=qp.get(AK[ai]);if(vv){store[AK[ai]]=vv;got=true;}}
+      if(got){if(!store._first)store._first=new Date().toISOString();store._last=new Date().toISOString();store._landing=location.pathname;try{localStorage.setItem("fluent_attrib",JSON.stringify(store));}catch(e){}}
+    }catch(e){}
+    function attrib(){try{return JSON.parse(localStorage.getItem("fluent_attrib")||"{}");}catch(e){return {};}}
+
+    /* ---- language ---- */
+    function curLang(){var l=(document.documentElement.lang||"en").toLowerCase();return l.indexOf("ja")===0?"ja":"en";}
+    var TXT={
+      en:{details:"Your details",last:"One last thing",name:"Name",email:"Email",phone:"WhatsApp / Phone",optional:"(optional)",notes:"Anything else you would like us to know?",next:"Next",send:"Begin my search",sending:"Sending…",selectAll:"Select all that apply",
+        source_q:"How did you hear about FLUENT?",source:["Web Search","Online Advertisement","FLUENT Website","Flyer / Card","Introduced by Someone","Social Media","Other"],
+        referrer_q:"Who introduced you to FLUENT?",referrer_ph:"Referrer’s Name",
+        flyer_q:"Where did you find it?",flyer:["Dental Clinic","Office","Hotel","Restaurant","Other"],
+        ad_q:"Where did you see the advertisement?",ad:["Google","Instagram","Facebook","Other"],
+        sns_q:"Which platform?",sns:["Instagram","Facebook","LinkedIn","YouTube","Other"],
+        other_q:"Please tell us how you heard about FLUENT.",specify:"Please specify"},
+      ja:{details:"お客様情報",last:"最後にひとつ",name:"お名前",email:"メールアドレス",phone:"WhatsApp / 電話番号",optional:"（任意）",notes:"その他、ご要望などがあればお書きください",next:"次へ",send:"物件を探す",sending:"送信中…",selectAll:"あてはまるものをすべて選択",
+        source_q:"FLUENTをどこで知りましたか？",source:["Web検索","ネット広告","FLUENT Webサイト","チラシ・カード","知人からの紹介","SNS","その他"],
+        referrer_q:"ご紹介者のお名前を教えてください",referrer_ph:"紹介者名",
+        flyer_q:"どちらでご覧になりましたか？",flyer:["歯科医院","オフィス","ホテル","レストラン","その他"],
+        ad_q:"どちらの広告をご覧になりましたか？",ad:["Google","Instagram","Facebook","その他"],
+        sns_q:"どのSNSで知りましたか？",sns:["Instagram","Facebook","LinkedIn","YouTube","その他"],
+        other_q:"どちらでFLUENTを知ったか教えてください。",specify:"ご記入ください"}
+    };
+    var SRC_KEYS=["web_search","online_ad","website","flyer","referral","social","other"];
+    var FLYER_KEYS=["dental_clinic","office","hotel","restaurant","other"];
+    var AD_KEYS=["google","instagram","facebook","other"];
+    var SNS_KEYS=["instagram","facebook","linkedin","youtube","other"];
+    var SRC_EN={web_search:"Web Search",online_ad:"Online Advertisement",website:"FLUENT Website",flyer:"Flyer / Card",referral:"Introduced by Someone",social:"Social Media",other:"Other"};
+    var FLYER_EN={dental_clinic:"Dental Clinic",office:"Office",hotel:"Hotel",restaurant:"Restaurant",other:"Other"};
+    var AD_EN={google:"Google",instagram:"Instagram",facebook:"Facebook",other:"Other"};
+    var SNS_EN={instagram:"Instagram",facebook:"Facebook",linkedin:"LinkedIn",youtube:"YouTube",other:"Other"};
+
     var STEPS=[
       {id:"looking",q:"What are you looking for?",type:"single",opts:["Buy","Rent","Investment","Not sure yet"],req:true},
       {id:"where",q:"Where would you like to live?",type:"multi",opts:["Minato","Shibuya","Meguro","Chiyoda","Shinjuku","Setagaya","Other Tokyo areas","Open to suggestions"]},
@@ -644,30 +686,38 @@ body.menu-open{overflow:hidden}
     ];
     var BUY=["Under ¥100M","¥100M–¥200M","¥200M–¥300M","¥300M–¥500M","¥500M–¥1B","¥1B+","Flexible"];
     var RENT=["Under ¥500K / month","¥500K–¥1M / month","¥1M–¥2M / month","¥2M–¥3M / month","¥3M+ / month","Flexible"];
-    var A={}, idx=0, N=STEPS.length;
+    var A={}, SRCA={src:null,sub:null,refname:"",other:"",subother:""};
+    var idx=0, N=STEPS.length, DETAILS=N, SOURCE=N+1;
     var stage=document.getElementById("rqStage"), prog=document.getElementById("rqProg");
     var back=document.getElementById("rqBack"), next=document.getElementById("rqNext");
-    function esc(x){return String(x).replace(/"/g,"&quot;");}
+    function esc(x){return String(x).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
     function bopts(){return A.looking==="Rent"?RENT:BUY;}
+    function t(){return TXT[curLang()];}
+    function validEmail(x){return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(x||"");}
+
     function render(){
       if(idx<N){
         var s=STEPS[idx], opts=s.dyn?bopts():s.opts, sel=A[s.id]||(s.type==="multi"?[]:null);
         var h='<div class="rq-q">'+s.q+'</div><div class="rq-opts">';
         for(var k=0;k<opts.length;k++){var o=opts[k];var on=s.type==="multi"?(sel.indexOf(o)>=0):(sel===o);h+='<button type="button" class="rq-opt'+(on?" on":"")+'" data-v="'+esc(o)+'">'+o+'</button>';}
-        h+='</div>'; if(s.type==="multi")h+='<div class="rq-hint">Select all that apply</div>';
-        stage.innerHTML=h; prog.textContent=(idx+1)+" / "+N; next.innerHTML='Next <span class="arw">&rarr;</span>';
-      } else {
-        stage.innerHTML='<div class="rq-q">Your details</div><div class="rq-fields">'
-          +'<label class="rq-f"><span>Name</span><input id="rqName" type="text" autocomplete="name"></label>'
-          +'<label class="rq-f"><span>Email</span><input id="rqEmail" type="email" autocomplete="email"></label>'
-          +'<label class="rq-f"><span>WhatsApp / Phone <em>(optional)</em></span><input id="rqPhone" type="text" autocomplete="tel"></label>'
-          +'<label class="rq-f"><span>Anything else you would like us to know? <em>(optional)</em></span><textarea id="rqMsg" rows="2"></textarea></label>'
+        h+='</div>'; if(s.type==="multi")h+='<div class="rq-hint">'+t().selectAll+'</div>';
+        stage.innerHTML=h; prog.textContent=(idx+1)+" / "+N; next.innerHTML=t().next+' <span class="arw">&rarr;</span>';
+        bindProp();
+      } else if(idx===DETAILS){
+        var d=t();
+        stage.innerHTML='<div class="rq-q">'+d.details+'</div><div class="rq-fields">'
+          +'<label class="rq-f"><span>'+d.name+'</span><input id="rqName" type="text" autocomplete="name" value="'+esc(A._name||"")+'"></label>'
+          +'<label class="rq-f"><span>'+d.email+'</span><input id="rqEmail" type="email" autocomplete="email" value="'+esc(A._email||"")+'"></label>'
+          +'<label class="rq-f"><span>'+d.phone+' <em>'+d.optional+'</em></span><input id="rqPhone" type="text" autocomplete="tel" value="'+esc(A._phone||"")+'"></label>'
+          +'<label class="rq-f"><span>'+d.notes+' <em>'+d.optional+'</em></span><textarea id="rqMsg" rows="2">'+esc(A._msg||"")+'</textarea></label>'
           +'</div>';
-        prog.textContent="Your details"; next.innerHTML='Begin my search <span class="arw">&rarr;</span>';
+        prog.textContent=d.details; next.innerHTML=d.next+' <span class="arw">&rarr;</span>';
+      } else {
+        renderSource(); prog.textContent=t().last; next.innerHTML=t().send+' <span class="arw">&rarr;</span>';
       }
-      back.style.visibility=idx===0?"hidden":"visible"; bind();
+      back.style.visibility=idx===0?"hidden":"visible";
     }
-    function bind(){
+    function bindProp(){
       var bs=stage.querySelectorAll(".rq-opt"), s=STEPS[idx];
       for(var k=0;k<bs.length;k++){(function(b){b.addEventListener("click",function(){
         var v=b.getAttribute("data-v");
@@ -675,23 +725,78 @@ body.menu-open{overflow:hidden}
         else{A[s.id]=v;var all=stage.querySelectorAll(".rq-opt");for(var m=0;m<all.length;m++)all[m].classList.remove("on");b.classList.add("on");}
       });})(bs[k]);}
     }
+    function renderSource(){
+      var d=t();
+      var h='<div class="rq-q">'+d.source_q+'</div><div class="rq-opts" id="rqSrcOpts">';
+      for(var i=0;i<SRC_KEYS.length;i++){h+='<button type="button" class="rq-opt'+(SRCA.src===SRC_KEYS[i]?" on":"")+'" data-k="'+SRC_KEYS[i]+'">'+d.source[i]+'</button>';}
+      h+='</div><div class="rq-sub" id="rqSub"></div>';
+      stage.innerHTML=h;
+      var bs=stage.querySelectorAll("#rqSrcOpts .rq-opt");
+      for(var j=0;j<bs.length;j++){(function(b){b.addEventListener("click",function(){
+        SRCA.src=b.getAttribute("data-k"); SRCA.sub=null; SRCA.subother="";
+        if(SRCA.src!=="referral")SRCA.refname=""; if(SRCA.src!=="other")SRCA.other="";
+        var all=stage.querySelectorAll("#rqSrcOpts .rq-opt");for(var m=0;m<all.length;m++)all[m].classList.remove("on");b.classList.add("on");
+        renderSub();
+      });})(bs[j]);}
+      renderSub();
+    }
+    function renderSub(){
+      var d=t(), sub=document.getElementById("rqSub"); if(!sub)return; var h="";
+      function selRow(q,keys,labels,cur){var x='<div class="rq-subq">'+q+'</div><div class="rq-opts" id="rqSubOpts">';for(var i=0;i<keys.length;i++){x+='<button type="button" class="rq-opt'+(cur===keys[i]?" on":"")+'" data-sk="'+keys[i]+'">'+labels[i]+'</button>';}return x+'</div>';}
+      if(SRCA.src==="referral"){h='<div class="rq-subq">'+d.referrer_q+'</div><div class="rq-f rq-subf"><input id="rqRef" type="text" placeholder="'+esc(d.referrer_ph)+'" value="'+esc(SRCA.refname)+'"></div>';}
+      else if(SRCA.src==="flyer"){h=selRow(d.flyer_q,FLYER_KEYS,d.flyer,SRCA.sub);if(SRCA.sub==="other")h+='<div class="rq-f rq-subf"><input id="rqSubOther" type="text" placeholder="'+esc(d.specify)+'" value="'+esc(SRCA.subother)+'"></div>';}
+      else if(SRCA.src==="online_ad"){h=selRow(d.ad_q,AD_KEYS,d.ad,SRCA.sub);if(SRCA.sub==="other")h+='<div class="rq-f rq-subf"><input id="rqSubOther" type="text" placeholder="'+esc(d.specify)+'" value="'+esc(SRCA.subother)+'"></div>';}
+      else if(SRCA.src==="social"){h=selRow(d.sns_q,SNS_KEYS,d.sns,SRCA.sub);}
+      else if(SRCA.src==="other"){h='<div class="rq-f rq-subf"><input id="rqOther" type="text" placeholder="'+esc(d.other_q)+'" value="'+esc(SRCA.other)+'"></div>';}
+      sub.innerHTML=h;
+      var sbs=sub.querySelectorAll("#rqSubOpts .rq-opt");
+      for(var i=0;i<sbs.length;i++){(function(b){b.addEventListener("click",function(){
+        SRCA.sub=b.getAttribute("data-sk");var all=sub.querySelectorAll("#rqSubOpts .rq-opt");for(var m=0;m<all.length;m++)all[m].classList.remove("on");b.classList.add("on");renderSub();
+      });})(sbs[i]);}
+      var r=document.getElementById("rqRef"); if(r)r.addEventListener("input",function(){SRCA.refname=r.value;});
+      var so=document.getElementById("rqSubOther"); if(so)so.addEventListener("input",function(){SRCA.subother=so.value;});
+      var o=document.getElementById("rqOther"); if(o)o.addEventListener("input",function(){SRCA.other=o.value;});
+    }
+    function saveDetails(){
+      var n=document.getElementById("rqName"),e=document.getElementById("rqEmail"),p=document.getElementById("rqPhone"),m=document.getElementById("rqMsg");
+      if(n)A._name=n.value; if(e)A._email=e.value; if(p)A._phone=p.value; if(m)A._msg=m.value;
+    }
     function shake(){try{next.animate([{transform:"translateX(0)"},{transform:"translateX(-5px)"},{transform:"translateX(5px)"},{transform:"translateX(0)"}],{duration:260});}catch(e){}}
     function top(){var el=document.getElementById("rq");if(el&&!el.hidden)el.scrollIntoView({behavior:"smooth",block:"center"});}
+    function submit(){
+      saveDetails();
+      var nm=A._name||"", em=A._email||"", ph=A._phone||"", ms=A._msg||"";
+      var L=[]; for(var k=0;k<STEPS.length;k++){var s=STEPS[k],a=A[s.id];if(a&&(!(a instanceof Array)||a.length))L.push(s.q+"  "+((a instanceof Array)?a.join(", "):a));}
+      var srcEN=SRC_EN[SRCA.src]||"", detail="", fields={};
+      fields.hear_about=srcEN;
+      if(SRCA.src==="referral"){fields.referrer_name=SRCA.refname;detail="Referrer: "+SRCA.refname;}
+      else if(SRCA.src==="flyer"){var fl=FLYER_EN[SRCA.sub]||"";if(SRCA.sub==="other"&&SRCA.subother)fl="Other: "+SRCA.subother;fields.flyer_location=fl;detail=fl;}
+      else if(SRCA.src==="online_ad"){var ad=AD_EN[SRCA.sub]||"";if(SRCA.sub==="other"&&SRCA.subother)ad="Other: "+SRCA.subother;fields.ad_platform=ad;detail=ad;}
+      else if(SRCA.src==="social"){fields.sns_platform=SNS_EN[SRCA.sub]||"";detail=fields.sns_platform;}
+      else if(SRCA.src==="other"){fields.source_other=SRCA.other;detail=SRCA.other;}
+      var at=attrib(); var akeys=["source","referrer","ref","utm_source","utm_medium","utm_campaign","utm_content","utm_term","gclid","fbclid"];
+      for(var ci=0;ci<akeys.length;ci++){if(at[akeys[ci]])fields["attr_"+akeys[ci]]=at[akeys[ci]];}
+      var body="New property request via fluent.co.jp\n\n"+L.join("\n")
+        +"\n\nHow did you hear about FLUENT?  "+srcEN+(detail?("  ("+detail+")"):"")
+        +"\n\nName: "+nm+"\nEmail: "+em+"\nPhone: "+ph+"\nNotes: "+ms;
+      var atLines=[]; for(var key in fields){if(key.indexOf("attr_")===0)atLines.push(key.replace("attr_","")+": "+fields[key]);}
+      if(atLines.length)body+="\n\n[Attribution]\n"+atLines.join("\n");
+      var subj="New Property Request — FLUENT · "+srcEN+((SRCA.src==="referral"&&SRCA.refname)?(" · "+SRCA.refname):"");
+      var payload={name:nm,email:em,phone:ph,message:body,_subject:subj};
+      for(var f in fields){payload[f]=fields[f];}
+      function done(){document.getElementById("rq").hidden=true;var intro=document.querySelector(".rq-intro");if(intro)intro.hidden=true;var dn=document.getElementById("rqDone");dn.hidden=false;dn.scrollIntoView({behavior:"smooth",block:"center"});}
+      function mfb(){try{window.location.href="mailto:hello@fluent.co.jp?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body);}catch(e){}}
+      next.disabled=true; next.innerHTML=t().sending;
+      try{fetch("https://formspree.io/f/mqpzzaov",{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify(payload)}).then(function(r){done();}).catch(function(){mfb();done();});}catch(e){mfb();done();}
+    }
     next.addEventListener("click",function(){
-      if(idx<N){var s=STEPS[idx];if(s.req&&!A[s.id]){shake();return;}idx++;render();top();}
-      else{
-        var nm=(document.getElementById("rqName")||{}).value||"", em=(document.getElementById("rqEmail")||{}).value||"";
-        if(!nm.trim()||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){shake();return;}
-        var ph=(document.getElementById("rqPhone")||{}).value||"", ms=(document.getElementById("rqMsg")||{}).value||"";
-        var L=[]; for(var k=0;k<STEPS.length;k++){var s=STEPS[k],a=A[s.id];if(a&&(!(a instanceof Array)||a.length))L.push(s.q+"  "+((a instanceof Array)?a.join(", "):a));}
-        var body="New property request via fluent.co.jp\n\n"+L.join("\n")+"\n\nName: "+nm+"\nEmail: "+em+"\nPhone: "+ph+"\nNotes: "+ms;
-        function done(){document.getElementById("rq").hidden=true;var intro=document.querySelector(".rq-intro");if(intro)intro.hidden=true;var dn=document.getElementById("rqDone");dn.hidden=false;dn.scrollIntoView({behavior:"smooth",block:"center"});}
-        function mfb(){try{window.location.href="mailto:hello@fluent.co.jp?subject="+encodeURIComponent("New Property Request — FLUENT")+"&body="+encodeURIComponent(body);}catch(e){}}
-        next.disabled=true; next.innerHTML="Sending…";
-        try{fetch("https://formspree.io/f/mqpzzaov",{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({name:nm,email:em,phone:ph,message:body,_subject:"New Property Request — FLUENT"})}).then(function(r){done();}).catch(function(){mfb();done();});}catch(e){mfb();done();}
-      }
+      if(idx<N){var s=STEPS[idx];if(s.req&&!A[s.id]){shake();return;}idx++;render();top();return;}
+      if(idx===DETAILS){saveDetails();if(!(A._name||"").trim()||!validEmail(A._email)){shake();return;}idx++;render();top();return;}
+      if(!SRCA.src){shake();return;}
+      if(SRCA.src==="referral"&&!(SRCA.refname||"").trim()){shake();return;}
+      submit();
     });
-    back.addEventListener("click",function(){if(idx>0){idx--;render();top();}});
+    back.addEventListener("click",function(){if(idx>0){if(idx===DETAILS)saveDetails();idx--;render();top();}});
     render();
   })();
   </script>
