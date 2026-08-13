@@ -44,6 +44,7 @@
   body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.85;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
   img{max-width:100%;display:block}
   a{color:inherit}
+  [hidden]{display:none!important}
   .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
   .display{font-family:var(--font-display);font-weight:400;letter-spacing:.01em;line-height:1.32;text-wrap:balance}
   .eyebrow{font-size:.74rem;letter-spacing:.22em;color:var(--accent);font-weight:600}
@@ -53,9 +54,27 @@
   header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1.3rem var(--gutter);transition:padding .4s,background .4s,border-color .4s;border-bottom:1px solid transparent;background:linear-gradient(180deg,color-mix(in srgb,var(--paper) 70%,transparent),transparent)}
   header.shrink{padding:.8rem var(--gutter);background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:saturate(120%) blur(12px);border-bottom:1px solid var(--line-soft)}
   .brand{font-family:var(--font-display);font-size:1.3rem;letter-spacing:.34em;text-indent:.34em;text-decoration:none;white-space:nowrap}
-  .header-cta{background:var(--ink);color:var(--paper);border:1px solid var(--ink);border-radius:999px;padding:.55rem 1.35rem;text-decoration:none;font-size:.8rem;letter-spacing:.06em;white-space:nowrap;transition:background .3s,color .3s}
-  .header-cta:hover{background:transparent;color:var(--ink)}
-  @media(max-width:520px){.brand{font-size:1.1rem}.header-cta{padding:.5rem 1rem;font-size:.74rem}}
+  .header-cta-group{display:flex;gap:.55rem;align-items:center}
+  .hcta{border-radius:999px;padding:.55rem 1.3rem;text-decoration:none;font-size:.8rem;letter-spacing:.05em;white-space:nowrap;transition:background .3s,color .3s,border-color .3s;cursor:pointer;font-family:var(--font-body);border:1px solid transparent;background:none;color:var(--ink)}
+  .hcta.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .hcta.primary:hover{background:transparent;color:var(--ink)}
+  .hcta.secondary{border-color:color-mix(in srgb,var(--ink) 30%,transparent);color:var(--ink)}
+  .hcta.secondary:hover{border-color:var(--ink);background:color-mix(in srgb,var(--ink) 6%,transparent)}
+  @media(max-width:640px){.header-cta-group{display:none}.brand{font-size:1.1rem}}
+
+  /* mobile fixed 2-split CTA */
+  .mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;gap:.5rem;padding:.6rem .6rem calc(.6rem + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--paper) 90%,transparent);-webkit-backdrop-filter:saturate(120%) blur(12px);backdrop-filter:saturate(120%) blur(12px);border-top:1px solid var(--line-soft);transform:translateY(110%);transition:transform .4s ease}
+  .mobile-cta.show{transform:translateY(0)}
+  .mobile-cta .mc-btn{flex:1;text-align:center;border-radius:999px;padding:.85rem .4rem;font-size:.84rem;letter-spacing:.01em;text-decoration:none;white-space:nowrap;border:1px solid var(--ink);font-family:var(--font-body);cursor:pointer;display:flex;align-items:center;justify-content:center}
+  .mc-primary{background:var(--ink);color:var(--paper)}
+  .mc-secondary{background:transparent;color:var(--ink);border-color:color-mix(in srgb,var(--ink) 34%,transparent)}
+  @media(max-width:640px){.mobile-cta{display:flex}}
+  @media (prefers-reduced-motion:reduce){.mobile-cta{transition:none}}
+
+  /* QR in share panel */
+  .share-qr{display:flex;flex-direction:column;align-items:center;gap:.5rem;margin-bottom:1.2rem}
+  .share-qr img{width:148px;height:148px;border-radius:12px;background:#fff;padding:8px;border:1px solid var(--line)}
+  .share-qr span{font-size:.78rem;color:var(--ink-faint)}
 
   /* hero */
   .hero{position:relative;min-height:92svh;display:flex;align-items:flex-end;padding-bottom:clamp(3rem,8vh,6rem);isolation:isolate;overflow:hidden}
@@ -166,7 +185,10 @@
 
 <header id="hdr">
   <a class="brand" href="https://fluent.co.jp/">FLUENT</a>
-  <a class="header-cta" href="#contact">ご紹介・ご相談</a>
+  <nav class="header-cta-group">
+    <a class="hcta primary" href="#contact" data-cta="form">ご紹介・ご相談</a>
+    <button class="hcta secondary" type="button" data-cta="share">外国人の方に紹介</button>
+  </nav>
 </header>
 
 <main>
@@ -179,7 +201,7 @@
       <h1 class="display">外国人のお知り合いが、<br>東京で家を探していませんか？</h1>
       <p class="sub">FLUENTは、住まい探しから東京での暮らしまで、<strong>英語で直接サポート</strong>するブティック不動産です。その方をご紹介ください。あとは、FLUENTにお任せください。</p>
       <div class="hero-actions">
-        <a class="btn btn-solid" href="#contact" data-cta="form">FLUENTへ紹介する</a>
+        <a class="btn btn-solid" href="#contact" data-cta="form">ご紹介・ご相談</a>
         <button class="btn btn-ghost" type="button" data-cta="share">外国人の方にFLUENTを紹介する</button>
       </div>
     </div>
@@ -239,15 +261,15 @@
       <div class="routes">
         <div class="route">
           <div class="route-n">01</div>
-          <h3 class="display">FLUENTへ紹介する</h3>
-          <p>ご本人の同意を得たうえで、フォームからご紹介ください。FLUENTから、ご本人へ英語で直接ご連絡します。</p>
-          <a class="btn btn-solid" href="#contact" data-cta="form">FLUENTへ紹介する</a>
+          <h3 class="display">ご紹介・ご相談</h3>
+          <p>「こういう外国人のお客様がいる」「紹介したい」「相談したい」という場合。ご本人の同意を得たうえで、フォームからお知らせください。FLUENTから、ご本人へ英語で直接ご連絡します。</p>
+          <a class="btn btn-solid" href="#contact" data-cta="form">ご紹介・ご相談</a>
         </div>
         <div class="route">
           <div class="route-n">02</div>
-          <h3 class="display">ご本人にFLUENTを送る</h3>
-          <p>外国人のご友人・お客様へ、FLUENTの英語ページをそのままお送りいただけます。ご本人に直接お送りいただけるので、連絡先などをご入力いただく必要はありません。</p>
-          <button class="btn btn-ghost" type="button" data-cta="share">英語ページを送る</button>
+          <h3 class="display">外国人の方にFLUENTを紹介する</h3>
+          <p>「このFLUENTを本人に直接見てもらいたい」という場合。外国人のご友人・お客様へ、FLUENTの英語ページをそのままお渡しいただけます。連絡先などをご入力いただく必要はありません。</p>
+          <button class="btn btn-ghost" type="button" data-cta="share">外国人の方にFLUENTを紹介する</button>
         </div>
       </div>
     </div>
@@ -337,15 +359,24 @@
   <div class="share-card" role="dialog" aria-modal="true" aria-label="外国人の方にFLUENTを紹介する">
     <button class="share-close" id="shareClose" aria-label="閉じる">&times;</button>
     <p class="share-eyebrow">外国人の方にFLUENTを紹介する</p>
-    <p class="share-title display">FLUENTの英語ページを送る</p>
-    <p class="share-lead">外国人のご友人・お客様へ、FLUENTの英語ページをお送りいただけます。まず内容をご覧いただくこともできます。</p>
+    <p class="share-title display">FLUENTの英語ページを渡す</p>
+    <div class="share-qr">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASIAAAEiCAIAAADS3EjhAAAE+UlEQVR4nO3dMY4bORBA0RljT7GJAd3/TAKc7DV6b9CB298sUu/lknpkfTBwofh9XdcXUPqRvjsgM/gbZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGeRkBrl/nrz49fPfr7O8f/33239v99onVj3zp/027jnNICczyMkMcjKDnMwgJzPIyQxyMoOczGD2FMi9brLhiSfTCTvOasz0Pu63cc9pBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAY7T4Gs+h/3mbMa3eeeN6vx2vC3cc9pBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAbnToHs6Lz7U1bNtXwapxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5EyB/DHdnMeTaQxzHhM4zSAnM8jJDHIyg5zMICczyMkMcjKDnMzg3CmQHecPZt5U0s15rJogeW/427jnNIOczCAnM8jJDHIyg5zMICczyMkMcjKDnadAVt1yct4ukO6umVXzFq8P+204zSAnM8jJDHIyg5zMICczyMkMcjKDnMwg931dV/8pH6G78+W8bR+fxmkGOZlBTmaQkxnkZAY5mUFOZpCTGeRkBrN3gey4o6Kb1Xjy2pm7MXacPnmN/E06zSAnM8jJDHIyg5zMICczyMkMcjKDnMxg9hTIzPtE7p9qx2fubpPpdJ/7WvRNPuE0g5zMICczyMkMcjKDnMwgJzPIyQxyMoNzd4E8eefutd2MyHlzHvdWTWO8Rs6IOM0gJzPIyQxyMoOczCAnM8jJDHIyg5zMYOddIKvu5pg5B9C986ppm5ne2a09TzjNICczyMkMcjKDnMwgJzPIyQxyMoOczGDnXSAzzdxf0s0fnHcTzXvkd3XPaQY5mUFOZpCTGeRkBjmZQU5mkJMZ5GQG5+4CWTWd0O0RWeW8vSmdVc/sNIOczCAnM8jJDHIyg5zMICczyMkMcjKD3Pd1Xb/94vP2Pcw089tYNU/z2vCZnWaQkxnkZAY5mUFOZpCTGeRkBjmZQU5mMHsKZMcNFk+easctIzvuXHli5r4WpxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZzL4RppsS6My8A6X7Jnf8i+51Uz7db9JpBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAbn7gLZ0arJhpk7OWbuL3nCjTCwMZlBTmaQkxnkZAY5mUFOZpCTGeRkBufuApmpmzCYeVNJNyOyapJjJqcZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGcyeArk383/6d9x+seqGlPP+9e+5EQY2JjPIyQxyMoOczCAnM8jJDHIyg5zMYOcpkE+bP5h5b0tn5lPN3FDiNIOczCAnM8jJDHIyg5zMICczyMkMcjKDc6dAztNNcnTbPnZ85h1nU5xmkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpAzBbLBto9Vm0K6z31lr33yzN2mEKcZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGZw7BbLq3pYnugmDmfeYzNyr8X7w96761TnNICczyMkMcjKDnMwgJzPIyQxyMoOczGDnKZCZMwRP7DiN0T1zt93k3o7v7DSDnMwgJzPIyQxyMoOczCAnM8jJDHIyg9z3dV39p8BHc5pBTmaQkxnkZAY5mUFOZpCTGeRkBjmZQU5mkJMZ5GQGOZlBTmaQkxnkZAY5mUFOZpCTGXzV/geEU4lPkl5zhwAAAABJRU5ErkJggg==" alt="FLUENT英語ページ（fluent.co.jp/lp）のQRコード" width="148" height="148">
+      <span>スマホのカメラで読み取れます</span>
+    </div>
     <div class="share-actions">
-      <a class="btn btn-solid" id="shareMail" href="#">メールで送る</a>
+      <button class="btn btn-solid" id="shareNative" type="button" hidden>LINE・メール等で送る</button>
+      <a class="btn btn-solid" id="shareMail" href="#" hidden>メールで送る</a>
       <button class="btn btn-ghost" id="shareCopy" type="button">URLをコピー</button>
       <a class="btn btn-ghost" id="shareOpen" href="https://fluent.co.jp/lp/" target="_blank" rel="noopener">英語ページを開く（プレビュー）</a>
     </div>
-    <p class="share-url">https://fluent.co.jp/lp/</p>
+    <p class="share-url">fluent.co.jp/lp</p>
   </div>
+</div>
+
+<div class="mobile-cta" id="mobileCta">
+  <a class="mc-btn mc-primary" href="#contact" data-cta="form">ご紹介・ご相談</a>
+  <button class="mc-btn mc-secondary" type="button" data-cta="share">外国人の方に紹介</button>
 </div>
 
 <div id="shareToast" class="toast" role="status" aria-live="polite"></div>
@@ -412,21 +443,19 @@
   var modal=document.getElementById("shareModal");
   function openShareModal(){
     if(!modal) return;
-    var mail=document.getElementById("shareMail");
-    if(mail) mail.setAttribute("href","mailto:?subject="+encodeURIComponent("FLUENT — English-speaking real estate & relocation in Tokyo")+"&body="+encodeURIComponent(SHARE_TEXT+"\n\n"+SHARE_URL));
+    var nativeBtn=document.getElementById("shareNative");
+    var mailBtn=document.getElementById("shareMail");
+    if(navigator.share){
+      if(nativeBtn) nativeBtn.hidden=false;
+      if(mailBtn) mailBtn.hidden=true;
+    } else {
+      if(nativeBtn) nativeBtn.hidden=true;
+      if(mailBtn){ mailBtn.hidden=false; mailBtn.setAttribute("href","mailto:?subject="+encodeURIComponent("FLUENT — English-speaking real estate & relocation in Tokyo")+"&body="+encodeURIComponent(SHARE_TEXT+"\n\n"+SHARE_URL)); }
+    }
     modal.classList.add("open"); modal.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden";
   }
   function closeShareModal(){ if(!modal) return; modal.classList.remove("open"); modal.setAttribute("aria-hidden","true"); document.body.style.overflow=""; }
-  function shareFluent(){
-    track("share_english_lp_click");
-    if(navigator.share){
-      // URL単体で共有（共有シートの「コピー」でもクリーンなURLだけがコピーされ、貼り付けても404にならない）
-      navigator.share({url:SHARE_URL})
-        .then(function(){ track("share_success"); }).catch(function(){});
-    } else {
-      openShareModal(); // 共有機能が無い環境: 共有パネルを表示
-    }
-  }
+  function shareFluent(){ track("share_english_lp_click"); openShareModal(); }
   document.querySelectorAll('[data-cta="share"]').forEach(function(b){ b.addEventListener("click", shareFluent); });
   document.querySelectorAll('[data-cta="form"]').forEach(function(b){ b.addEventListener("click", function(){ track("referral_form_click"); }); });
   if(modal){
@@ -435,7 +464,21 @@
     document.addEventListener("keydown", function(e){ if(e.key==="Escape" && modal.classList.contains("open")) closeShareModal(); });
     var cp=document.getElementById("shareCopy"); if(cp) cp.addEventListener("click", function(){ copyText(SHARE_URL); });
     var so=document.getElementById("shareOpen"); if(so) so.addEventListener("click", function(){ track("share_success"); });
+    var nb=document.getElementById("shareNative"); if(nb) nb.addEventListener("click", function(){ if(navigator.share){ navigator.share({url:SHARE_URL}).then(function(){ track("share_success"); }).catch(function(){}); } });
   }
+
+  /* ---- モバイル下部固定CTAの表示制御（ヒーローを過ぎたら表示・フォーム表示中は隠す） ---- */
+  var mobileCta=document.getElementById("mobileCta");
+  var contactSec=document.getElementById("contact");
+  function updateMobileCta(){
+    if(!mobileCta) return;
+    var show = window.scrollY > 460;
+    if(contactSec){ var r=contactSec.getBoundingClientRect(); if(r.top < window.innerHeight*0.85 && r.bottom > 0) show=false; }
+    mobileCta.classList.toggle("show", show);
+  }
+  window.addEventListener("scroll", updateMobileCta, {passive:true});
+  window.addEventListener("resize", updateMobileCta, {passive:true});
+  updateMobileCta();
 })();
 </script>
 </body></html>
