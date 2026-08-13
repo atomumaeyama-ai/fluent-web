@@ -53,14 +53,18 @@
   /* header */
   header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:1.3rem var(--gutter);transition:padding .4s,background .4s,border-color .4s;border-bottom:1px solid transparent;background:linear-gradient(180deg,color-mix(in srgb,var(--paper) 70%,transparent),transparent)}
   header.shrink{padding:.8rem var(--gutter);background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:saturate(120%) blur(12px);border-bottom:1px solid var(--line-soft)}
-  .brand{font-family:var(--font-display);font-size:1.3rem;letter-spacing:.34em;text-indent:.34em;text-decoration:none;white-space:nowrap}
+  .brand-lockup{display:flex;align-items:center;gap:.7rem;text-decoration:none;white-space:nowrap;min-width:0}
+  .brand{font-family:var(--font-display);font-size:1.3rem;letter-spacing:.34em;text-indent:.34em;white-space:nowrap;color:var(--ink)}
+  .brand-sep{width:1px;height:1.05em;background:color-mix(in srgb,var(--ink) 26%,transparent);flex:none}
+  .brand-desc{font-family:var(--font-body);font-size:.8rem;font-weight:400;letter-spacing:.02em;color:var(--ink-soft);white-space:nowrap}
   .header-cta-group{display:flex;gap:.55rem;align-items:center}
   .hcta{border-radius:999px;padding:.55rem 1.3rem;text-decoration:none;font-size:.8rem;letter-spacing:.05em;white-space:nowrap;transition:background .3s,color .3s,border-color .3s;cursor:pointer;font-family:var(--font-body);border:1px solid transparent;background:none;color:var(--ink)}
   .hcta.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
   .hcta.primary:hover{background:transparent;color:var(--ink)}
   .hcta.secondary{border-color:color-mix(in srgb,var(--ink) 30%,transparent);color:var(--ink)}
   .hcta.secondary:hover{border-color:var(--ink);background:color-mix(in srgb,var(--ink) 6%,transparent)}
-  @media(max-width:640px){.header-cta-group{display:none}.brand{font-size:1.1rem}}
+  @media(max-width:640px){.header-cta-group{display:none}.brand{font-size:1.1rem;letter-spacing:.2em;text-indent:.2em}.brand-desc{font-size:.72rem}.brand-sep{height:1em}.brand-lockup{gap:.5rem}header{padding:1rem var(--gutter)}}
+  @media(max-width:380px){.brand{font-size:1.02rem;letter-spacing:.12em;text-indent:.12em}.brand-desc{font-size:.66rem}}
 
   /* mobile fixed 2-split CTA */
   .mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;gap:.5rem;padding:.6rem .6rem calc(.6rem + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--paper) 90%,transparent);-webkit-backdrop-filter:saturate(120%) blur(12px);backdrop-filter:saturate(120%) blur(12px);border-top:1px solid var(--line-soft);transform:translateY(110%);transition:transform .4s ease}
@@ -184,7 +188,11 @@
 </head><body>
 
 <header id="hdr">
-  <a class="brand" href="https://fluent.co.jp/">FLUENT</a>
+  <a class="brand-lockup" href="https://fluent.co.jp/" aria-label="FLUENT ― 英語が話せる不動産屋さん">
+    <span class="brand">FLUENT</span>
+    <span class="brand-sep" aria-hidden="true"></span>
+    <span class="brand-desc">英語が話せる不動産屋さん</span>
+  </a>
   <nav class="header-cta-group">
     <a class="hcta primary" href="#contact" data-cta="form">ご紹介・ご相談</a>
     <button class="hcta secondary" type="button" data-cta="share">外国人の方に紹介</button>
@@ -197,7 +205,6 @@
     <div class="hero-photo" style="background-image:url(/assets/img/img25.jpg)"></div>
     <div class="hero-veil"></div>
     <div class="wrap">
-      <span class="eyebrow">FLUENT ／ 英語が話せる不動産屋さん</span>
       <h1 class="display">外国人のお知り合いが、<br>東京で家を探していませんか？</h1>
       <p class="sub">FLUENTは、住まい探しから東京での暮らしまで、<strong>英語で直接サポート</strong>するブティック不動産です。その方をご紹介ください。あとは、FLUENTにお任せください。</p>
       <div class="hero-actions">
