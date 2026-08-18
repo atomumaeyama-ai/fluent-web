@@ -389,11 +389,11 @@ body.menu-open{overflow:hidden}
         <span class="eyebrow" data-i18n="prop.eyebrow">Inspired Living</span>
         <h2 class="display" data-i18n="prop.h2">A Glimpse of Life in Tokyo</h2>
       </div>
-      <div class="prop-grid stagger">
-        <a class="prop reveal" href="#contact"><div class="frame"><div class="art" data-art="tower"></div></div></a>
-        <a class="prop reveal" href="#contact"><div class="frame"><div class="art" data-art="garden"></div></div></a>
-        <a class="prop reveal" href="#contact"><div class="frame"><div class="art" data-art="pent"></div></div></a>
-        <a class="prop reveal" href="#contact"><div class="frame"><div class="art" data-art="villa"></div></div></a>
+      <div class="prop-edit stagger">
+        <a class="pe pe-feature reveal" href="#contact"><div class="frame"><div class="art" data-art="tower"></div></div><span class="pe-tag">Everyday Tokyo</span></a>
+        <a class="pe pe-a reveal" href="#contact"><div class="frame"><div class="art" data-art="garden"></div></div><span class="pe-tag">Green</span></a>
+        <a class="pe pe-b reveal" href="#contact"><div class="frame"><div class="art" data-art="pent"></div></div><span class="pe-tag">Quiet</span></a>
+        <a class="pe pe-c reveal" href="#contact"><div class="frame"><div class="art" data-art="villa"></div></div><span class="pe-tag">Urban</span></a>
       </div>
       <div class="prop-note"><p class="pn-h">Properties, selected for you.<span class="pn-jp">あなたのために選ぶ、東京の住まい。</span></p><p class="pn-b">The residences shown on this website are for inspiration only and do not represent specific properties currently available for sale or lease. Tell us what you're looking for, and we'll curate properties based on your preferences, including privately marketed opportunities where available.</p><p class="pn-b pn-jp2">本サイトに掲載している住宅画像は、FLUENTがご提案する暮らしのイメージであり、現在売買・賃貸中の特定物件を示すものではありません。ご希望条件をお聞かせいただければ、一般には公開されていない物件を含め、お客様のご希望に合った物件をご提案いたします。</p></div>
       <div class="mid-cta reveal">
@@ -526,6 +526,21 @@ body.menu-open{overflow:hidden}
   /* 物件カード：地名ラベルと売買/賃貸バッジを非表示、画像を主役に */
   .prop .loc, .prop .tier{ display:none !important; }
   .prop .frame{ aspect-ratio:3/4; }
+  .prop-edit{ display:grid; gap:clamp(1.2rem,2.4vw,2rem); }
+  .prop-edit .pe{ display:flex; flex-direction:column; gap:.7rem; text-decoration:none; color:inherit; }
+  .prop-edit .frame{ border-radius:2px; overflow:hidden; position:relative; border:1px solid var(--line); aspect-ratio:16/10; }
+  .prop-edit .art{ position:absolute; inset:0; }
+  .pe-tag{ font-size:.63rem; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-faint); }
+  .prop-edit .pe .frame{ transition:transform 1.2s cubic-bezier(.2,.7,.2,1); }
+  .prop-edit .pe:hover .art{ transform:scale(1.04); }
+  @media(min-width:820px){
+    .prop-edit{ grid-template-columns:2fr 2fr 1.5fr; grid-template-areas:"feat feat side" "b c side"; align-items:stretch; }
+    .pe-feature{ grid-area:feat; } .pe-a{ grid-area:side; } .pe-b{ grid-area:b; } .pe-c{ grid-area:c; }
+    .pe-feature .frame{ aspect-ratio:16/10; }
+    .pe-b .frame,.pe-c .frame{ aspect-ratio:4/3; }
+    .pe-a{ align-self:stretch; }
+    .pe-a .frame{ aspect-ratio:auto; flex:1 1 auto; }
+  }
   .prop-note{ max-width:60ch; margin:3.4rem auto 0; text-align:center; }
   .prop-note .pn-h{ font-family:var(--font-display); font-size:1.15rem; color:var(--ink); margin-bottom:1rem; }
   .prop-note .pn-h .pn-jp{ display:block; font-size:.92rem; color:var(--ink-soft); margin-top:.35rem; }
